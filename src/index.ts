@@ -1,9 +1,7 @@
 import { PostgresDatabaseAdapter } from "@ai16z/adapter-postgres";
 import { SqliteDatabaseAdapter } from "@ai16z/adapter-sqlite";
 import { DirectClientInterface } from "@ai16z/client-direct";
-import { DiscordClientInterface } from "@ai16z/client-discord";
 import { AutoClientInterface } from "@ai16z/client-auto";
-import { TelegramClientInterface } from "@ai16z/client-telegram";
 import { TwitterClientInterface } from "@ai16z/client-twitter";
 import {
   DbCacheAdapter,
@@ -22,9 +20,6 @@ import {
   IDatabaseAdapter,
   validateCharacterConfig,
 } from "@ai16z/eliza";
-import { bootstrapPlugin } from "@ai16z/plugin-bootstrap";
-import { solanaPlugin } from "@ai16z/plugin-solana";
-import { nodePlugin } from "@ai16z/plugin-node";
 import Database from "better-sqlite3";
 import fs from "fs";
 import readline from "readline";
@@ -173,15 +168,6 @@ export async function initializeClients(
     if (autoClient) clients.push(autoClient);
   }
 
-  if (clientTypes.includes("discord")) {
-    clients.push(await DiscordClientInterface.start(runtime));
-  }
-
-  if (clientTypes.includes("telegram")) {
-    const telegramClient = await TelegramClientInterface.start(runtime);
-    if (telegramClient) clients.push(telegramClient);
-  }
-
   if (clientTypes.includes("twitter")) {
     const twitterClients = await TwitterClientInterface.start(runtime);
     clients.push(twitterClients);
@@ -217,11 +203,7 @@ export function createAgent(
     modelProvider: character.modelProvider,
     evaluators: [],
     character,
-    plugins: [
-      bootstrapPlugin,
-      nodePlugin,
-      character.settings.secrets?.WALLET_PUBLIC_KEY ? solanaPlugin : null,
-    ].filter(Boolean),
+    plugins: [],
     providers: [],
     actions: [],
     services: [],
