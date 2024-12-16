@@ -3,6 +3,7 @@
     "plugins": [],
     "clients": ["twitter", "telegram"],
     "modelProvider": "openai",
+    "people": [],
     "settings": {
         "secrets": {},
         "voice": {
