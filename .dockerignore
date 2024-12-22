@@ -3,6 +3,11 @@
 .gitignore
 .gitattributes
 
+# Build artifacts
+dist
+build
+*.tsbuildinfo
+
 # Dependencies
 node_modules
 npm-debug.log
@@ -10,25 +15,32 @@ yarn-debug.log
 yarn-error.log
 pnpm-debug.log
 
-# Environment
+# Environment files
 .env
 .env.*
 
-# IDE
+# IDE files
 .idea
 .vscode
 *.swp
 *.swo
 
-# Build
-dist
-build
-*.tsbuildinfo
-
-# Testing
-coverage
-.nyc_output
-
-# System
+# OS files
 .DS_Store
 Thumbs.db
+
+# Test files
+coverage
+.nyc_output
+__tests__
+*.test.*
+*.spec.*
+
+# Docker files
+Dockerfile
+.dockerignore
+docker-compose*
+
+# Documentation
+docs
+*.md
